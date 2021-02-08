@@ -1,10 +1,8 @@
-import ImageSprite from './SceneElements/ImageSprite'
+import MoveableElement from './Abstract/MoveableElement'
 
 export type Size = {
     width: number,
     height: number
 }
 
-export type SceneElement = ImageSprite
-
-export type Intersection = SceneElement | null
+export type Intersection = MoveableElement | null

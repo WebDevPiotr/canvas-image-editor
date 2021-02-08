@@ -1,10 +1,11 @@
-import { Intersection, SceneElement } from './Types'
+import { Intersection } from './Types'
 import { Scene, CanvasRenderer, CanvasInspector } from './Core'
 import Vector from 'utils/VectorUtils'
+import MoveableElement from 'App/Abstract/MoveableElement'
 
 class SceneController {
 
-    private selectedElement: SceneElement
+    private selectedElement: MoveableElement
     private isMouseDown: boolean
 
     constructor(private canvas: HTMLCanvasElement) { }

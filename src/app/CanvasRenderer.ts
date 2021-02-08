@@ -1,11 +1,10 @@
-import Drawable from 'App/AbstractObjects/Drawable';
 import Scene from 'App/Scene'
+import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
 
 interface ICanvasRenderer {
     render(scene: Scene): void
     clear(): void
 }
-
 class CanvasRenderer implements ICanvasRenderer {
 
     private static instance: CanvasRenderer;
@@ -32,31 +31,16 @@ class CanvasRenderer implements ICanvasRenderer {
 
     public render(scene: Scene) {
         this.clear()
-        if(scene.background) this.draw(scene.background)
-        if(scene.elements.length) this.drawElements(scene.elements)
+        if (scene.background)
+            RenderStrategyProvider.get(scene.background.type).execute(this.context, scene.background)
+        if (scene.elements.length)
+            scene.elements.forEach(element =>
+                RenderStrategyProvider.get(element.type).execute(this.context, element)
+            )
     }
 
     public clear() {
         this.context.clearRect(0, 0, this.width, this.height);
-    }
-
-    private draw(sceneElement: Drawable) {
-        this.resizeToFitCanvas(sceneElement)
-        sceneElement.draw(this.context)
-    }
-
-    private drawElements(elements: Drawable[]) {
-        elements.forEach(element => this.draw(element))
-    }
-
-    private resizeToFitCanvas(sceneElement: Drawable) {
-        let widthRatio = sceneElement.originalSize.width / this.width
-        let heightRatio = sceneElement.originalSize.height / this.height
-        let scale = widthRatio > 1 || heightRatio > 1 ? Math.max(widthRatio, heightRatio) : 1
-        sceneElement.size = {
-            width: sceneElement.originalSize.width / scale,
-            height: sceneElement.originalSize.height / scale
-        }
     }
 
 }

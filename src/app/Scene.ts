@@ -1,12 +1,12 @@
-import SceneBackground from './SceneElements/SceneBackground'
-import SceneBorder from './SceneElements/SceneBorder'
+import SceneBackground from './CanvasElements/SceneBackground'
+import SceneBorder from './CanvasElements/SceneBorder'
 import ImageLoader from './Loaders/ImageLoader'
-import ImageSprite from './SceneElements/ImageSprite';
-import { SceneElement } from './Types'
+import ImageSprite from './CanvasElements/ImageSprite';
+import MoveableElement from './Abstract/MoveableElement';
 
 interface IScene {
-    addElement(object: SceneElement): void
-    removeElement(object: SceneElement): void
+    addElement(object: MoveableElement): void
+    removeElement(object: MoveableElement): void
 }
 
 class Scene implements IScene {
@@ -14,7 +14,7 @@ class Scene implements IScene {
     private static instance: Scene;
     private _background: SceneBackground
     private _border: SceneBorder
-    private _elements: SceneElement[] = []
+    private _elements: MoveableElement[] = []
 
     get background() { return this._background }
     get border() { return this._border }
@@ -37,11 +37,11 @@ class Scene implements IScene {
             this.addElement(new ImageSprite(image))
     }
 
-    public addElement(element: SceneElement) {
+    public addElement(element: MoveableElement) {
         this._elements.push(element)
     }
 
-    public removeElement(element: SceneElement) {
+    public removeElement(element: MoveableElement) {
 
     }
 
