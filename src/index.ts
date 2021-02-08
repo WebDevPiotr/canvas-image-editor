@@ -1,5 +1,7 @@
 import './index.scss'
 import { Scene, CanvasRenderer, SceneController } from './app/Core'
+import ExportStrategyProvider from 'app/ExportStrategies/ExportStrategyProvider'
+import ExportTypes from 'app/ExportStrategies/ExportTypes'
 
 const scene = Scene.getInstance()
 const renderer = CanvasRenderer.getInstance()
@@ -22,3 +24,11 @@ canvas.addEventListener('drop', async e => {
 canvas.addEventListener("dragover", e => {
     e.preventDefault();
 });
+
+
+
+const button = document.querySelector('#export')
+
+button.addEventListener('click', () => {
+    ExportStrategyProvider.get(ExportTypes.BMP).execute(canvas)
+})

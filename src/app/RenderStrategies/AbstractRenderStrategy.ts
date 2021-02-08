@@ -1,7 +1,7 @@
 import Element from '../Abstract/Element'
 import IRenderStrategy from './IRenderStartegy'
 
-abstract class RenderStrategy implements IRenderStrategy {
+abstract class AbstractRenderStrategy implements IRenderStrategy {
 
     public execute(context: CanvasRenderingContext2D, element: Element) {
         this.resizeToFitCanvas(context, element)
@@ -19,4 +19,4 @@ abstract class RenderStrategy implements IRenderStrategy {
 
 }
 
-export default RenderStrategy
+export default AbstractRenderStrategy

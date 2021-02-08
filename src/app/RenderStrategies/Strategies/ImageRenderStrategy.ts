@@ -1,7 +1,6 @@
 import ImageSprite from "App/CanvasElements/ImageSprite";
-import RenderStrategy from "../RenderStrategy";
-
-class ImageRenderStrategy extends RenderStrategy {
+import AbstractRenderStrategy from "../AbstractRenderStrategy";
+class ImageRenderStrategy extends AbstractRenderStrategy {
 
     execute(context: CanvasRenderingContext2D, image: ImageSprite) {
         super.execute(context, image)

@@ -1,7 +1,6 @@
 import SceneBackground from "App/CanvasElements/SceneBackground";
-import RenderStrategy from "../RenderStrategy";
-
-class BackgroundRenderStrategy extends RenderStrategy {
+import AbstractRenderStrategy from "../AbstractRenderStrategy";
+class BackgroundRenderStrategy extends AbstractRenderStrategy {
 
     public execute(context: CanvasRenderingContext2D, background: SceneBackground) {
         super.execute(context, background)

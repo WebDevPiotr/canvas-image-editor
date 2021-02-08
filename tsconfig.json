@@ -9,7 +9,12 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "App/*": ["app/*"],
+      "App/*": [
+        "app/*"
+      ],
+      "Utils/*": [
+        "utils/*"
+      ]
     }
   }
 }
