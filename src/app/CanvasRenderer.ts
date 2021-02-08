@@ -1,6 +1,6 @@
 import Scene from 'App/Scene'
 import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
-
+import SelectionDecorator from './RenderStrategies/Decorators/SelectionDecorator'
 interface ICanvasRenderer {
     render(scene: Scene): void
     clear(): void
@@ -34,9 +34,11 @@ class CanvasRenderer implements ICanvasRenderer {
         if (scene.background)
             RenderStrategyProvider.get(scene.background.type).execute(this.context, scene.background)
         if (scene.elements.length)
-            scene.elements.forEach(element =>
-                RenderStrategyProvider.get(element.type).execute(this.context, element)
-            )
+            scene.elements.forEach(element => {
+                let strategy = RenderStrategyProvider.get(element.type)
+                if (element.isSelected) new SelectionDecorator(strategy).execute(this.context, element)
+                else strategy.execute(this.context, element)
+            })
     }
 
     public clear() {
