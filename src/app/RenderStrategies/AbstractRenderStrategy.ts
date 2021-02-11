@@ -1,19 +1,21 @@
-import Element from '../Abstract/Element'
+import RenderableElement from '../Abstract/RenderableElement'
 import IRenderStrategy from './IRenderStartegy'
 
 abstract class AbstractRenderStrategy implements IRenderStrategy {
 
-    public execute(context: CanvasRenderingContext2D, element: Element) {
+    public execute(context: CanvasRenderingContext2D, element: RenderableElement) {
         this.resizeToFitCanvas(context, element)
     }
 
-    private resizeToFitCanvas(context: CanvasRenderingContext2D, element: Element) {
-        let widthRatio = element.originalSize.width / context.canvas.width
-        let heightRatio = element.originalSize.height / context.canvas.height
-        let scale = widthRatio > 1 || heightRatio > 1 ? Math.max(widthRatio, heightRatio) : 1
-        element.size = {
-            width: element.originalSize.width / scale,
-            height: element.originalSize.height / scale
+    private resizeToFitCanvas(context: CanvasRenderingContext2D, element: RenderableElement) {
+        let widthRatio = element.size.width / context.canvas.width
+        let heightRatio = element.size.height / context.canvas.height
+        if (widthRatio > 1 || heightRatio > 1) {
+            let scale = Math.max(widthRatio, heightRatio)
+            element.size = {
+                width: Math.floor(element.originalSize.width / scale),
+                height: Math.floor(element.originalSize.height / scale)
+            }
         }
     }
 

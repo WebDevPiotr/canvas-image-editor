@@ -1,5 +1,6 @@
-import Element from './Element'
-import Vector from '../../utils/VectorUtils'
+import RenderableElement from './RenderableElement'
+import Vector from 'Utils/VectorUtils'
+import SelectionIndicator from 'App/CanvasElements/SelectionIndicator/SelectionIndicator'
 
 interface IMoveable {
     select(mousePosition: Vector): void
@@ -7,22 +8,24 @@ interface IMoveable {
     move(mousePosition: Vector): void
 }
 
-abstract class MoveableElement extends Element implements IMoveable {
+abstract class MoveableElement extends RenderableElement implements IMoveable {
 
     private _isClickable: boolean = true
     private _isSelected: boolean = false
-    private _position: Vector = new Vector(0, 0)
     private _offset: Vector
+    private _selectionIndicator: SelectionIndicator
 
     get isClickable() { return this._isClickable }
     set isClickable(isClickable: boolean) { this._isClickable = isClickable }
 
+    get selectionIndicator() { return this._selectionIndicator }
+    set selectionIndicator(selectionIndicator: SelectionIndicator) { this._selectionIndicator = selectionIndicator }
+
     get isSelected() { return this._isSelected }
-    get position() { return this._position }
 
     public select(mousePosiition: Vector) {
         this._isSelected = true
-        this._offset = mousePosiition.sub(this._position)
+        this._offset = mousePosiition.sub(this.position)
     }
 
     public deselect() {
@@ -30,7 +33,8 @@ abstract class MoveableElement extends Element implements IMoveable {
     }
 
     public move(mousePosiition: Vector) {
-        this._position = mousePosiition.sub(this._offset)
+        this.position = mousePosiition.sub(this._offset)
+        this._selectionIndicator.update()
     }
 
 }

@@ -1,5 +1,9 @@
 import IRenderStrategy from "../IRenderStartegy";
 import MoveableElement from 'App/Abstract/MoveableElement'
+import RenderableElement from 'App/Abstract/RenderableElement'
+import CircleRenderStrategy from "../Strategies/CircleRenderStrategy";
+import RectangleRenderStrategy from "../Strategies/RectangleRenderStrategy";
+import RenderStrategyProvider from "../RenderStrategyProvider";
 
 class SelectionDecorator implements IRenderStrategy {
 
@@ -7,16 +11,22 @@ class SelectionDecorator implements IRenderStrategy {
 
     public execute(context: CanvasRenderingContext2D, element: MoveableElement) {
         this.strategy.execute(context, element)
-        context.beginPath();
+        context.save();
         context.lineWidth = 1;
         context.strokeStyle = "red";
-        context.rect(
-            element.position.x - element.size.width / 2,
-            element.position.y - element.size.height / 2,
-            element.size.width,
-            element.size.height
-        );
-        context.stroke();
+        this.drawBorder(context, element)
+        context.lineWidth = 1.5;
+        context.strokeStyle = "green"
+        element.selectionIndicator.elements.forEach(element => this.drawIndicator(context, element))
+        context.restore()
+    }
+
+    private drawBorder(context: CanvasRenderingContext2D, element: MoveableElement) {
+        new RectangleRenderStrategy().execute(context, element)
+    }
+
+    private drawIndicator(context: CanvasRenderingContext2D, element: RenderableElement) {
+        RenderStrategyProvider.get(element.type).execute(context, element)
     }
 }
 

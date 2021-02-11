@@ -4,10 +4,11 @@ class BackgroundRenderStrategy extends AbstractRenderStrategy {
 
     public execute(context: CanvasRenderingContext2D, background: SceneBackground) {
         super.execute(context, background)
-        let offsetX: number = context.canvas.width / 2
-        let offsetY: number = context.canvas.height / 2
+        let canvas = context.canvas
+        if (canvas.width > background.size.width) canvas.width = background.size.width
+        if (canvas.height > background.size.height) canvas.height = background.size.height
         context.save()
-        context.translate(offsetX, offsetY)
+        context.translate(canvas.width / 2, canvas.height / 2)
         context.drawImage(background.image, -background.size.width / 2, -background.size.height / 2, background.size.width, background.size.height)
         context.restore()
     }

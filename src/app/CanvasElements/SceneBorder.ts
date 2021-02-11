@@ -1,12 +1,12 @@
-import Element from 'App/Abstract/Element'
+import RenderableElement from 'App/Abstract/RenderableElement'
 import CanvasElementTypes from './CanvasElementsTypes'
 
-class SceneBorder extends Element {
+class SceneBorder extends RenderableElement {
 
     constructor(private _image: HTMLImageElement) {
-        super()
+        super(CanvasElementTypes.Border)
         this.originalSize = { width: _image.width, height: _image.height }
-        this.type = CanvasElementTypes.Border
+        this.size = { width: _image.width, height: _image.height }
     }
 
     get image() { return this._image }
