@@ -2,7 +2,7 @@ import JPGExportStrategy from './Strategies/JPGExportStrategy'
 import PNGExportStrategy from './Strategies/PNGExportStrategy'
 import BMPExportStrategy from './Strategies/BMPExportStrategy'
 import ExportTypes from './ExportTypes'
-import IExportStrategy from './IExportStartegy'
+import IExportStrategy from './IExportStrategy'
 
 class RenderStrategyProvider {
 

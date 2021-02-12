@@ -1,4 +1,4 @@
-import IExportStrategy from "App/ExportStrategies/IExportStartegy";
+import IExportStrategy from "App/ExportStrategies/IExportStrategy";
 import CanvasToBMP from '../../../utils/BMPUtils'
 
 class BMPExportStrategy implements IExportStrategy {

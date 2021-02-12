@@ -1,12 +1,22 @@
-import { Intersection } from './Types'
-import { Scene, CanvasRenderer, CanvasInspector } from './Core'
+import { Intersection } from '../Types'
+import { Scene, CanvasInspector } from '../Core'
 import Vector from 'utils/VectorUtils'
 import MoveableElement from 'App/Abstract/MoveableElement'
+import ControllerModeType from './ControllerModeType'
+import MouseMovingStrategyProvider from './MouseMoveStrategies/MouseMoveStrategyProvider'
+import MouseDownStrategyProvider from './MouseDownStrategies/MouseDownStrategyProvider'
 
 class SceneController {
 
-    private selectedElement: MoveableElement
+    private _selectedElement: MoveableElement
     private isMouseDown: boolean
+    private _mode: ControllerModeType = ControllerModeType.UNSELECTED
+
+    get selectedElement(){ return this._selectedElement}
+    set selectedElement(selectedElement: MoveableElement){ this._selectedElement = selectedElement}
+
+    get mode(){ return this._mode}
+    set mode(mode: ControllerModeType){ this._mode = mode}
 
     constructor(private canvas: HTMLCanvasElement) { }
 
@@ -19,35 +29,19 @@ class SceneController {
     private onMouseDown(e: MouseEvent) {
         this.isMouseDown = true
         const mousePosiition = this.getMousePosition(e)
-        this.checkIntersection(mousePosiition)
+        const intersectedElement = this.intersectScene(mousePosiition)
+        MouseDownStrategyProvider.get(this.mode, intersectedElement).execute(intersectedElement, mousePosiition, this)
     }
 
     private onMouseMove(e: MouseEvent) {
         if (this.isMouseDown) {
             const mousePosiition = this.getMousePosition(e)
-            if (this.selectedElement) {
-                this.selectedElement.move(mousePosiition)
-                CanvasRenderer.getInstance().render(Scene.getInstance())
-            }
+            MouseMovingStrategyProvider.get(this.mode).execute(mousePosiition, this)
         }
     }
 
     private onMouseUp() {
         this.isMouseDown = false
-    }
-
-    private checkIntersection(mousePosiition: Vector) {
-        const intersectedElement = this.intersectScene(mousePosiition)
-        if (intersectedElement) {
-            if (this.selectedElement) this.selectedElement.deselect()
-            intersectedElement.select(mousePosiition)
-            this.selectedElement = intersectedElement
-            CanvasRenderer.getInstance().render(Scene.getInstance())
-        } else {
-            if (this.selectedElement) this.selectedElement.deselect()
-            this.selectedElement = null
-            CanvasRenderer.getInstance().render(Scene.getInstance())
-        }
     }
 
     private getMousePosition(e: MouseEvent): Vector {
