@@ -1,4 +1,4 @@
-import Scene from 'App/Scene'
+import Scene from 'App/Scene/Scene'
 import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
 import SelectionDecorator from './RenderStrategies/Decorators/SelectionDecorator'
 interface ICanvasRenderer {
@@ -33,8 +33,8 @@ class CanvasRenderer implements ICanvasRenderer {
         this.clear()
         if (scene.background)
             RenderStrategyProvider.get(scene.background.type).execute(this.context, scene.background)
-        if (scene.elements.length)
-            scene.elements.forEach(element => {
+        if (scene.layers.length)
+            scene.layers.forEach(({ element }) => {
                 let strategy = RenderStrategyProvider.get(element.type)
                 if (element.isSelected) new SelectionDecorator(strategy).execute(this.context, element)
                 else strategy.execute(this.context, element)

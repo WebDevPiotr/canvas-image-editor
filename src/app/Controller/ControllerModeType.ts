@@ -1,9 +1,9 @@
 enum ControllerModeType {
-    UNSELECTED, 
-    SELECTED,
-    MOVING,
-    RESIZING,
-    ROTATING
+    UNSELECTED = 'UNSELECTED',
+    SELECTED = 'SELECTED',
+    MOVING = 'MOVING',
+    RESIZING = 'RESIZING',
+    ROTATING = 'ROTATING'
 }
 
 export default ControllerModeType

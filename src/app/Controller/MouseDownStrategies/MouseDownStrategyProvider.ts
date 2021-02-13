@@ -1,5 +1,5 @@
 
-import MoveableElement from 'App/Abstract/MoveableElement'
+import RenderableElement from 'App/Abstract/RenderableElement'
 import ControllerModeType from '../ControllerModeType'
 import IMouseDownStrategy from './IMouseDownStrategy'
 import ElementSelectStartegy from './Strategies/ElementSelectStrategy'
@@ -7,7 +7,7 @@ import ElementUnselectStartegy from './Strategies/ElementUnselectStrategy'
 
 class MouseDownStrategyProvider {
 
-    static get(mode: ControllerModeType, clickedElement: MoveableElement): IMouseDownStrategy {
+    static get(mode: ControllerModeType, clickedElement: RenderableElement): IMouseDownStrategy {
         if (mode === ControllerModeType.SELECTED && clickedElement === null)
             return new ElementUnselectStartegy()
         else if ((mode === ControllerModeType.SELECTED || mode === ControllerModeType.UNSELECTED) && clickedElement !== null)

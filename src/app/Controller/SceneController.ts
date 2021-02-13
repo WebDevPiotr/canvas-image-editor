@@ -1,6 +1,6 @@
 import { Intersection } from '../Types'
 import { Scene, CanvasInspector } from '../Core'
-import Vector from 'utils/VectorUtils'
+import Vector from 'Utils/VectorUtils'
 import MoveableElement from 'App/Abstract/MoveableElement'
 import ControllerModeType from './ControllerModeType'
 import MouseMovingStrategyProvider from './MouseMoveStrategies/MouseMoveStrategyProvider'
@@ -30,13 +30,14 @@ class SceneController {
         this.isMouseDown = true
         const mousePosiition = this.getMousePosition(e)
         const intersectedElement = this.intersectScene(mousePosiition)
-        MouseDownStrategyProvider.get(this.mode, intersectedElement).execute(intersectedElement, mousePosiition, this)
+        console.log(intersectedElement)
+        MouseDownStrategyProvider.get(this.mode, intersectedElement)?.execute(intersectedElement, mousePosiition, this)
     }
 
     private onMouseMove(e: MouseEvent) {
         if (this.isMouseDown) {
             const mousePosiition = this.getMousePosition(e)
-            MouseMovingStrategyProvider.get(this.mode).execute(mousePosiition, this)
+            MouseMovingStrategyProvider.get(this.mode)?.execute(mousePosiition, this)
         }
     }
 
@@ -50,7 +51,7 @@ class SceneController {
     }
 
     private intersectScene(mousePos: Vector): Intersection {
-        return CanvasInspector.find(mousePos, Scene.getInstance().elements)
+        return CanvasInspector.findClickedElement(mousePos, Scene.getInstance().layers)
     }
 
 }

@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "dist",
     "noImplicitAny": true,
     "module": "es6",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "App/*": [
-        "app/*"
-      ],
-      "Utils/*": [
-        "utils/*"
-      ]
-    }
-  }
+      "App/*": ["src/app/*"],
+      "Utils/*": ["src/utils/*"]
+    },
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "test"]
 }
