@@ -1,5 +1,15 @@
+import { ElementSource } from "App/Types"
 
 class ImageLoader {
+
+    static async load(source: ElementSource) {
+        switch (typeof source) {
+            case 'string':
+                return this.loadFromUrl(source)
+            case 'object':
+                return this.loadFromFile(source)
+        }
+    }
 
     static async loadFromUrl(url: string): Promise<HTMLImageElement> {
         return new Promise(resolve => {

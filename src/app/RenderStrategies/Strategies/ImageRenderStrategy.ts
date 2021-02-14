@@ -2,9 +2,14 @@ import ImageSprite from "App/CanvasElements/ImageSprite";
 import AbstractRenderStrategy from "../AbstractRenderStrategy";
 class ImageRenderStrategy extends AbstractRenderStrategy {
 
-    execute(context: CanvasRenderingContext2D, image: ImageSprite) {
-        super.execute(context, image)
-        context.drawImage(image.image, -image.size.width / 2 + image.position.x, -image.size.height / 2 + image.position.y, image.size.width, image.size.height)
+    execute(context: CanvasRenderingContext2D, element: ImageSprite) {
+        const { position, size, rotation, image } = element
+        super.execute(context, element)
+        context.save()
+        context.translate(position.x, position.y);
+        context.rotate(rotation);
+        context.drawImage(image, -size.width / 2, -size.height / 2, size.width, size.height)
+        context.restore()
     }
 
 }

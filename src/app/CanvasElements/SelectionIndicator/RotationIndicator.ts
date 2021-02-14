@@ -1,4 +1,4 @@
-import RenderableElement from 'App/Abstract/RenderableElement'
+import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import Vector from 'Utils/VectorUtils'
 import CanvasElementTypes from '../CanvasElementsTypes'
 

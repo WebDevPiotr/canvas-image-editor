@@ -34,7 +34,10 @@ abstract class MoveableElement extends RenderableElement implements IMoveable {
 
     public move(mousePosiition: Vector) {
         this.position = mousePosiition.sub(this._offset)
-        this._selectionIndicator.update()
+    }
+
+    public rotate(mousePosiition: Vector) {
+        this.rotation = mousePosiition.sub(this.position).angleBetween(new Vector(0, -1))
     }
 
 }

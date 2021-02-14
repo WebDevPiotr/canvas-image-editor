@@ -1,9 +1,8 @@
-import RenderableElement from "App/Abstract/RenderableElement";
 import SceneController from "../SceneController";
-import Vector from 'Utils/VectorUtils'
+import { Intersection } from "App/Types";
 
 interface IMouseDownStrategy {
-    execute(clickedElement: RenderableElement, mousePosition: Vector, controller: SceneController): void
+    execute(intersection: Intersection, controller: SceneController): void
 }
 
 export default IMouseDownStrategy

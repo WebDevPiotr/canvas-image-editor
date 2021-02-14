@@ -1,19 +1,22 @@
 
-import RenderableElement from 'App/Abstract/RenderableElement'
-import ControllerModeType from '../ControllerModeType'
+import CanvasElementTypes from 'App/CanvasElements/CanvasElementsTypes'
+import { Intersection } from 'App/Types'
 import IMouseDownStrategy from './IMouseDownStrategy'
-import ElementSelectStartegy from './Strategies/ElementSelectStrategy'
-import ElementUnselectStartegy from './Strategies/ElementUnselectStrategy'
-
+import SelectStartegy from './Strategies/SelectStrategy'
+import UnselectStartegy from './Strategies/DeselectStrategy'
+import RotationStrategy from './Strategies/RotationStrategy'
+import ResizeStrategy from './Strategies/ResizeStrategy'
 class MouseDownStrategyProvider {
 
-    static get(mode: ControllerModeType, clickedElement: RenderableElement): IMouseDownStrategy {
-        if (mode === ControllerModeType.SELECTED && clickedElement === null)
-            return new ElementUnselectStartegy()
-        else if ((mode === ControllerModeType.SELECTED || mode === ControllerModeType.UNSELECTED) && clickedElement !== null)
-            return new ElementSelectStartegy()
-        else
-            return new ElementUnselectStartegy()
+    static get(intersection: Intersection): IMouseDownStrategy {
+        if (intersection.element === null)
+            return new UnselectStartegy()
+        else if (intersection.element.type === CanvasElementTypes.RotationIndicator)
+            return new RotationStrategy()
+        else if (intersection.element.type === CanvasElementTypes.SideIndicator)
+            return new ResizeStrategy()
+        else if (intersection.element !== null)
+            return new SelectStartegy()
     }
 }
 

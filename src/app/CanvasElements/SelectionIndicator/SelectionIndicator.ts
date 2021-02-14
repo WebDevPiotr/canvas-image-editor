@@ -1,5 +1,5 @@
-import CompundElement from 'App/Abstract/CompoundElement'
-import MoveableElement from 'App/Abstract/MoveableElement'
+import CompundElement from 'App/CanvasElements/Abstract/CompoundElement'
+import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import Vector from 'Utils/VectorUtils'
 import CanvasElementTypes from '../CanvasElementsTypes'
 import ResizeIndicator from './ResizeIndicator'
@@ -15,33 +15,33 @@ class SelectionIndicator extends CompundElement {
     set element(element: MoveableElement) { this._element = element }
 
     static fromElement(element: MoveableElement) {
-        const { position, size } = element
+        const { size } = element
         let indicator = new SelectionIndicator(element)
         indicator.add(
-            new ResizeIndicator(new Vector(position.x + size.width / 2, position.y + size.height / 2), CanvasElementTypes.CornerIndicator),
-            new ResizeIndicator(new Vector(position.x - size.width / 2, position.y - size.height / 2), CanvasElementTypes.CornerIndicator),
-            new ResizeIndicator(new Vector(position.x + size.width / 2, position.y - size.height / 2), CanvasElementTypes.CornerIndicator),
-            new ResizeIndicator(new Vector(position.x - size.width / 2, position.y + size.height / 2), CanvasElementTypes.CornerIndicator),
-            new ResizeIndicator(new Vector(position.x + size.width / 2, position.y), CanvasElementTypes.SideIndicator),
-            new ResizeIndicator(new Vector(position.x - size.width / 2, position.y), CanvasElementTypes.SideIndicator),
-            new ResizeIndicator(new Vector(position.x, position.y + size.height / 2), CanvasElementTypes.SideIndicator),
-            new ResizeIndicator(new Vector(position.x, position.y - size.height / 2), CanvasElementTypes.SideIndicator),
-            new RotationIndicator(new Vector(position.x, position.y - size.height / 2 - 40))
+            new ResizeIndicator(new Vector(size.width / 2, size.height / 2), CanvasElementTypes.CornerIndicator),
+            new ResizeIndicator(new Vector(-size.width / 2, -size.height / 2), CanvasElementTypes.CornerIndicator),
+            new ResizeIndicator(new Vector(size.width / 2, -size.height / 2), CanvasElementTypes.CornerIndicator),
+            new ResizeIndicator(new Vector(-size.width / 2, size.height / 2), CanvasElementTypes.CornerIndicator),
+            new ResizeIndicator(new Vector(size.width / 2, 0), CanvasElementTypes.SideIndicator),
+            new ResizeIndicator(new Vector(-size.width / 2, 0), CanvasElementTypes.SideIndicator),
+            new ResizeIndicator(new Vector(0, size.height / 2), CanvasElementTypes.SideIndicator),
+            new ResizeIndicator(new Vector(0, -size.height / 2), CanvasElementTypes.SideIndicator),
+            new RotationIndicator(new Vector(0, -size.height / 2 - 40))
         )
         return indicator
     }
 
     update() {
-        const { position, size } = this.element
-        this.elements[0].position = new Vector(position.x + size.width / 2, position.y + size.height / 2)
-        this.elements[1].position = new Vector(position.x - size.width / 2, position.y - size.height / 2)
-        this.elements[2].position = new Vector(position.x + size.width / 2, position.y - size.height / 2)
-        this.elements[3].position = new Vector(position.x - size.width / 2, position.y + size.height / 2)
-        this.elements[4].position = new Vector(position.x + size.width / 2, position.y)
-        this.elements[5].position = new Vector(position.x - size.width / 2, position.y)
-        this.elements[6].position = new Vector(position.x, position.y + size.height / 2)
-        this.elements[7].position = new Vector(position.x, position.y - size.height / 2)
-        this.elements[8].position = new Vector(position.x, position.y - size.height / 2 - 40)
+        const { size } = this.element
+        this.elements[0].position = new Vector(size.width / 2, size.height / 2)
+        this.elements[1].position = new Vector(-size.width / 2, -size.height / 2)
+        this.elements[2].position = new Vector(size.width / 2, -size.height / 2)
+        this.elements[3].position = new Vector(-size.width / 2, size.height / 2)
+        this.elements[4].position = new Vector(size.width / 2, 0)
+        this.elements[5].position = new Vector(-size.width / 2, 0)
+        this.elements[6].position = new Vector(0, size.height / 2)
+        this.elements[7].position = new Vector(0, -size.height / 2)
+        this.elements[8].position = new Vector(0, -size.height / 2 - 40)
     }
 
 }

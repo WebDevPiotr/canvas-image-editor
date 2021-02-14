@@ -7,23 +7,11 @@ interface ICanvasRenderer {
 }
 class CanvasRenderer implements ICanvasRenderer {
 
-    private static instance: CanvasRenderer;
-    private canvas: HTMLCanvasElement
     private context: CanvasRenderingContext2D
     private width: number
     private height: number
 
-    private constructor() { }
-
-    public static getInstance(): CanvasRenderer {
-        if (!CanvasRenderer.instance) {
-            CanvasRenderer.instance = new CanvasRenderer();
-        }
-        return CanvasRenderer.instance;
-    }
-
-    public setCanvas(canvas: HTMLCanvasElement) {
-        this.canvas = canvas
+    constructor(private canvas: HTMLCanvasElement) {
         this.context = canvas.getContext('2d')
         this.width = this.canvas.width
         this.height = this.canvas.height

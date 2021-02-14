@@ -1,4 +1,4 @@
-import MoveableElement from 'App/Abstract/MoveableElement'
+import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import Vector from 'Utils/VectorUtils'
 import CanvasElementTypes from './CanvasElementsTypes'
 import SelectionIndicator from './SelectionIndicator/SelectionIndicator'

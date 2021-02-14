@@ -1,4 +1,4 @@
-import RenderableElement from '../Abstract/RenderableElement'
+import RenderableElement from '../CanvasElements/Abstract/RenderableElement'
 import IRenderStrategy from './IRenderStartegy'
 
 abstract class AbstractRenderStrategy implements IRenderStrategy {

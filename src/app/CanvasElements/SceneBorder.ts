@@ -1,4 +1,4 @@
-import RenderableElement from 'App/Abstract/RenderableElement'
+import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import CanvasElementTypes from './CanvasElementsTypes'
 
 class SceneBorder extends RenderableElement {

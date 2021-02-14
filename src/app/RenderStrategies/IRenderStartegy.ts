@@ -1,5 +1,4 @@
-import Element from 'App/Abstract/Element'
-
+import Element from 'App/CanvasElements/Abstract/Element'
 interface IRenderStrategy {
     execute(context: CanvasRenderingContext2D, element: Element): void
 }
