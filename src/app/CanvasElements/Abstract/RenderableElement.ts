@@ -7,6 +7,7 @@ abstract class RenderableElement extends Element {
 
     private _size: Size
     private _originalSize: Size
+    private _ratio: number
     private _position: Vector = new Vector(0, 0)
     private _rotation: number = 0
 
@@ -25,6 +26,9 @@ abstract class RenderableElement extends Element {
 
     get size() { return this._size }
     set size(size: Size) { this._size = size }
+
+    get ratio() { return this._ratio }
+    set ratio(ratio: number) { this._ratio = ratio }
 
     get originalSize() { return this._originalSize }
     set originalSize(originalSize: Size) { this._originalSize = originalSize }

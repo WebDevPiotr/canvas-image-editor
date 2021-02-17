@@ -1,11 +1,11 @@
 import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import Vector from 'Utils/VectorUtils'
-import CanvasElementTypes from '../CanvasElementsTypes'
+import IndicatorTypes from './IndicatorTypes'
 
 class RotationIndicator extends RenderableElement {
 
-    constructor(position: Vector) {
-        super(CanvasElementTypes.RotationIndicator)
+    constructor(position: Vector, type: IndicatorTypes) {
+        super(type)
         this.position = position
         this.size = { width: 10, height: 10 }
         this.originalSize = { width: 10, height: 10 }

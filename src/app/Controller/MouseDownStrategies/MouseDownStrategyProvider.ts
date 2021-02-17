@@ -1,5 +1,5 @@
 
-import CanvasElementTypes from 'App/CanvasElements/CanvasElementsTypes'
+import IndicatorTypes, { checkifIsResizeIndicator } from 'App/CanvasElements/SelectionIndicator/IndicatorTypes'
 import { Intersection } from 'App/Types'
 import IMouseDownStrategy from './IMouseDownStrategy'
 import SelectStartegy from './Strategies/SelectStrategy'
@@ -11,9 +11,9 @@ class MouseDownStrategyProvider {
     static get(intersection: Intersection): IMouseDownStrategy {
         if (intersection.element === null)
             return new UnselectStartegy()
-        else if (intersection.element.type === CanvasElementTypes.RotationIndicator)
+        else if (intersection.element.type === IndicatorTypes.RotationIndicator)
             return new RotationStrategy()
-        else if (intersection.element.type === CanvasElementTypes.SideIndicator)
+        else if (checkifIsResizeIndicator(intersection.element.type as IndicatorTypes))
             return new ResizeStrategy()
         else if (intersection.element !== null)
             return new SelectStartegy()

@@ -30,7 +30,6 @@ class SceneController {
         this._isMouseDown = true
         const mousePosiition = this.getMousePosition(e)
         const intersection = this.intersectScene(mousePosiition)
-        console.log(intersection.element?.type)
         MouseDownStrategyProvider.get(intersection)?.execute(intersection, this)
         this.renderer.render(this.scene)
     }

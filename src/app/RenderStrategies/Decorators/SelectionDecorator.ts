@@ -2,7 +2,7 @@ import IRenderStrategy from "../IRenderStartegy";
 import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import SelectionBorderRenderStrategy from "./SelectionBorderRenderStrategy";
-import CanvasElementTypes from "App/CanvasElements/CanvasElementsTypes";
+import IndicatorTypes from 'App/CanvasElements/SelectionIndicator/IndicatorTypes'
 import ResizeIndicatorRenderStrategy from './ResizeIndicatorRenderStrategy'
 import RotationIndicatorRenderStrategy from './RotationIndicatorRenderStrategy'
 
@@ -28,10 +28,10 @@ class SelectionDecorator implements IRenderStrategy {
     }
 
     private drawIndicator(context: CanvasRenderingContext2D, indicator: RenderableElement, element: RenderableElement) {
-        if ([CanvasElementTypes.SideIndicator, CanvasElementTypes.CornerIndicator].includes(indicator.type))
-            new ResizeIndicatorRenderStrategy().execute(context, indicator, element)
-        if (indicator.type === CanvasElementTypes.RotationIndicator)
+        if (indicator.type === IndicatorTypes.RotationIndicator)
             new RotationIndicatorRenderStrategy().execute(context, indicator, element)
+        else
+            new ResizeIndicatorRenderStrategy().execute(context, indicator, element)
     }
 }
 

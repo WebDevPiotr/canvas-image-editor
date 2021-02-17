@@ -9,6 +9,7 @@ class ImageSprite extends MoveableElement {
         super(CanvasElementTypes.Image)
         this.originalSize = { width: _image.width, height: _image.height }
         this.size = { width: _image.width, height: _image.height }
+        this.ratio = _image.width / _image.height
         this.position = new Vector(this.size.width / 2, this.size.height / 2)
         this.selectionIndicator = SelectionIndicator.fromElement(this)
     }

@@ -87,13 +87,11 @@ describe('Vector tests', () => {
         expect(newVector).toEqual(new Vector(8.54, 3.46))
     })
 
-
     it('Check calc angle between', () => {
         let vectorFrom = new Vector(0, 5)
         let vectorTo = new Vector(-5, 0)
         let angle = vectorTo.angleBetween(vectorFrom)
         expect(angle).toEqual(Math.PI/2)
     })
-
 
 })
