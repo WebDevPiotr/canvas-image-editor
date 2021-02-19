@@ -1,4 +1,4 @@
-import SceneBackground from "App/CanvasElements/SceneBackground";
+import SceneBackground from "App/CanvasElements/Elements/SceneBackground";
 import AbstractRenderStrategy from "../AbstractRenderStrategy";
 class BackgroundRenderStrategy extends AbstractRenderStrategy {
 

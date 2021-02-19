@@ -5,18 +5,14 @@ import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import ControllerModeType from './ControllerModeType'
 import MouseMovingStrategyProvider from './MouseMoveStrategies/MouseMoveStrategyProvider'
 import MouseDownStrategyProvider from './MouseDownStrategies/MouseDownStrategyProvider'
+import SelectionIndicator from 'App/CanvasElements/SelectionIndicator/SelectionIndicator'
 
 class SceneController {
 
     private _selectedElement: MoveableElement
+    private _selectionIndicator: SelectionIndicator
     private _isMouseDown: boolean
     private _mode: ControllerModeType = ControllerModeType.UNSELECTED
-
-    get selectedElement(){ return this._selectedElement}
-    set selectedElement(selectedElement: MoveableElement){ this._selectedElement = selectedElement}
-
-    get mode(){ return this._mode}
-    set mode(mode: ControllerModeType){ this._mode = mode}
 
     constructor(private canvas: HTMLCanvasElement, private scene: Scene, private renderer: CanvasRenderer) { }
 
@@ -31,14 +27,14 @@ class SceneController {
         const mousePosiition = this.getMousePosition(e)
         const intersection = this.intersectScene(mousePosiition)
         MouseDownStrategyProvider.get(intersection)?.execute(intersection, this)
-        this.renderer.render(this.scene)
+        this.renderer.render(this.scene, this)
     }
 
     private onMouseMove(e: MouseEvent) {
         if (this._isMouseDown) {
             const mousePosiition = this.getMousePosition(e)
             MouseMovingStrategyProvider.get(this.mode)?.execute(mousePosiition, this)
-            this.renderer.render(this.scene)
+            this.renderer.render(this.scene, this)
         }
     }
 
@@ -52,8 +48,17 @@ class SceneController {
     }
 
     private intersectScene(mousePos: Vector): Intersection {
-        return CanvasInspector.findClickedElement(mousePos, this.scene.layers)
+        return new CanvasInspector().findClickedElement(mousePos, this.scene.layers, this)
     }
+
+    get selectedElement() { return this._selectedElement }
+    set selectedElement(selectedElement: MoveableElement) { this._selectedElement = selectedElement }
+
+    get mode() { return this._mode }
+    set mode(mode: ControllerModeType) { this._mode = mode }
+
+    get selectionIndicator() { return this._selectionIndicator }
+    set selectionIndicator(selectionIndicator: SelectionIndicator) { this._selectionIndicator = selectionIndicator }
 
 }
 

@@ -18,7 +18,7 @@ canvas.addEventListener('drop', async e => {
     e.preventDefault();
     //if(!scene.background) await scene.setBackground(e.dataTransfer.files[0])
     await scene.addToScene(e.dataTransfer.files[0])
-    renderer.render(scene)
+    renderer.render(scene, sceneController)
 })
 
 canvas.addEventListener("dragover", e => {
@@ -28,5 +28,5 @@ canvas.addEventListener("dragover", e => {
 const button = document.querySelector('#export')
 
 button.addEventListener('click', () => {
-    ExportStrategyProvider.get(ExportTypes.BMP).execute(canvas)
+    ExportStrategyProvider.get(ExportTypes.PNG).execute(canvas)
 })

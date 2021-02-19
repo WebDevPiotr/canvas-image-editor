@@ -1,9 +1,10 @@
 import Scene from 'App/Scene/Scene'
 import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
-import SelectionDecorator from './RenderStrategies/Decorators/SelectionDecorator'
+import SelectionDecorator from './RenderStrategies/SelectionIndicatorStrategies/SelectionDecorator'
 import CanvasElementTypes from './CanvasElements/CanvasElementsTypes';
+import SceneController from './Controller/SceneController';
 interface ICanvasRenderer {
-    render(scene: Scene): void
+    render(scene: Scene, controller: SceneController): void
     clear(): void
 }
 class CanvasRenderer implements ICanvasRenderer {
@@ -18,16 +19,16 @@ class CanvasRenderer implements ICanvasRenderer {
         this.height = this.canvas.height
     }
 
-    public render(scene: Scene) {
+    public render(scene: Scene, controller: SceneController) {
         this.clear()
         if (scene.background)
-            RenderStrategyProvider.get(scene.background.type as CanvasElementTypes).execute(this.context, scene.background)
+            RenderStrategyProvider.get(scene.background.type).execute(this.context, scene.background)
         if (scene.layers.length)
             scene.layers.forEach(({ element }) => {
-                let strategy = RenderStrategyProvider.get(element.type as CanvasElementTypes)
-                if (element.isSelected) new SelectionDecorator(strategy).execute(this.context, element)
-                else strategy.execute(this.context, element)
+                RenderStrategyProvider.get(element.type).execute(this.context, element)
             })
+        if (controller.selectionIndicator)
+            new SelectionDecorator().execute(this.context, controller)
     }
 
     public clear() {

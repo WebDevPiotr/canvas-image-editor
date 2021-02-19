@@ -12,6 +12,7 @@ class Resizetrategy implements IMouseMoveStrategy {
         const mousePosInElementCoord = mousePosition.clone().rotateAboutOrigin(position, -rotation)
         const { newSize, newPosition } = this.resize(mousePosInElementCoord, controller.selectedElement, controller.mode)
         controller.selectedElement.resize(newSize, newPosition)
+        controller.selectionIndicator.update()
     }
 
     private resize(mousePosition: Vector, element: RenderableElement, mode: ControllerModeType) {

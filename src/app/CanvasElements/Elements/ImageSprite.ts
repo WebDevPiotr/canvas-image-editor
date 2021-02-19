@@ -1,7 +1,6 @@
 import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import Vector from 'Utils/VectorUtils'
-import CanvasElementTypes from './CanvasElementsTypes'
-import SelectionIndicator from './SelectionIndicator/SelectionIndicator'
+import CanvasElementTypes from '../CanvasElementsTypes'
 
 class ImageSprite extends MoveableElement {
 
@@ -11,7 +10,6 @@ class ImageSprite extends MoveableElement {
         this.size = { width: _image.width, height: _image.height }
         this.ratio = _image.width / _image.height
         this.position = new Vector(this.size.width / 2, this.size.height / 2)
-        this.selectionIndicator = SelectionIndicator.fromElement(this)
     }
 
     get image() { return this._image }

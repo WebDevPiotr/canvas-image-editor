@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import CanvasElementTypes from '../CanvasElementsTypes'
-import IndicatorTypes from '../SelectionIndicator/IndicatorTypes';
+import CanvasElementsTypes from '../CanvasElementsTypes';
 
 abstract class Element {
 
     readonly id: string
-    readonly type: CanvasElementTypes | IndicatorTypes
+    readonly type: CanvasElementTypes | CanvasElementsTypes
 
-    constructor(type: CanvasElementTypes | IndicatorTypes) {
+    constructor(type: CanvasElementTypes | CanvasElementsTypes) {
         this.id = uuidv4()
         this.type = type
     }

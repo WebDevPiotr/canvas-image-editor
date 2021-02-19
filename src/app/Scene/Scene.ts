@@ -1,7 +1,7 @@
-import SceneBackground from '../CanvasElements/SceneBackground'
-import SceneBorder from '../CanvasElements/SceneBorder'
-import ImageLoader from '../Loaders/ImageLoader'
-import ImageSprite from '../CanvasElements/ImageSprite';
+import SceneBackground from 'App/CanvasElements/Elements/SceneBackground'
+import SceneBorder from 'App/CanvasElements/Elements/SceneBorder'
+import ImageSprite from 'App/CanvasElements/Elements/ImageSprite';
+import ImageLoader from 'App/Loaders/ImageLoader'
 import MoveableElement from '../CanvasElements/Abstract/MoveableElement';
 import SceneLayer from './SceneLayer'
 import { ElementSource } from 'App/Types';

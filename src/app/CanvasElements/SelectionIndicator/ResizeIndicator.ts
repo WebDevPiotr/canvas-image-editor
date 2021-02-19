@@ -1,14 +1,19 @@
 import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import Vector from 'Utils/VectorUtils'
-import IndicatorTypes from './IndicatorTypes'
-
+import CanvasElementsTypes from '../CanvasElementsTypes'
+import Placement from './Placement'
 class ResizeIndicator extends RenderableElement {
 
-    constructor(position: Vector, type: IndicatorTypes) {
-        super(type)
+    private _placement: Placement
+
+    get placement() { return this._placement }
+
+    constructor(position: Vector, placement: Placement) {
+        super(CanvasElementsTypes.ResizeIndicator)
         this.position = position
         this.size = { width: 10, height: 10 }
         this.originalSize = { width: 10, height: 10 }
+        this._placement = placement
     }
 
 }

@@ -1,14 +1,15 @@
 import CompundElement from 'App/CanvasElements/Abstract/CompoundElement'
 import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import Vector from 'Utils/VectorUtils'
-import IndicatorTypes from './IndicatorTypes'
+import CanvasElementsTypes from '../CanvasElementsTypes'
 import ResizeIndicator from './ResizeIndicator'
 import RotationIndicator from './RotationIndicator'
+import Placement from './Placement'
 
 class SelectionIndicator extends CompundElement {
 
     constructor(private _element: MoveableElement) {
-        super(IndicatorTypes.SelectionIndicator)
+        super(CanvasElementsTypes.SelectionIndicator)
     }
 
     get element() { return this._element }
@@ -18,20 +19,20 @@ class SelectionIndicator extends CompundElement {
         const { size } = element
         let indicator = new SelectionIndicator(element)
         indicator.add(
-            new ResizeIndicator(new Vector(size.width / 2, size.height / 2), IndicatorTypes.ResizeIndicator_BR),
-            new ResizeIndicator(new Vector(-size.width / 2, -size.height / 2), IndicatorTypes.ResizeIndicator_TL),
-            new ResizeIndicator(new Vector(size.width / 2, -size.height / 2), IndicatorTypes.ResizeIndicator_TR),
-            new ResizeIndicator(new Vector(-size.width / 2, size.height / 2), IndicatorTypes.ResizeIndicator_BL),
-            new ResizeIndicator(new Vector(size.width / 2, 0), IndicatorTypes.ResizeIndicator_R),
-            new ResizeIndicator(new Vector(-size.width / 2, 0), IndicatorTypes.ResizeIndicator_L),
-            new ResizeIndicator(new Vector(0, size.height / 2), IndicatorTypes.ResizeIndicator_B),
-            new ResizeIndicator(new Vector(0, -size.height / 2), IndicatorTypes.ResizeIndicator_T),
-            new RotationIndicator(new Vector(0, -size.height / 2 - 40), IndicatorTypes.RotationIndicator)
+            new ResizeIndicator(new Vector(size.width / 2, size.height / 2), Placement.BOTTOM_RIGHT),
+            new ResizeIndicator(new Vector(-size.width / 2, -size.height / 2), Placement.TOP_LEFT),
+            new ResizeIndicator(new Vector(size.width / 2, -size.height / 2), Placement.TOP_RIGHT),
+            new ResizeIndicator(new Vector(-size.width / 2, size.height / 2), Placement.BOTTOM_LEFT),
+            new ResizeIndicator(new Vector(size.width / 2, 0), Placement.RIGHT),
+            new ResizeIndicator(new Vector(-size.width / 2, 0), Placement.LEFT),
+            new ResizeIndicator(new Vector(0, size.height / 2), Placement.BOTTOM),
+            new ResizeIndicator(new Vector(0, -size.height / 2), Placement.TOP),
+            new RotationIndicator(new Vector(0, -size.height / 2 - 40))
         )
         return indicator
     }
 
-    update() {
+    public update() {
         const { size } = this.element
         this.elements[0].position = new Vector(size.width / 2, size.height / 2)
         this.elements[1].position = new Vector(-size.width / 2, -size.height / 2)

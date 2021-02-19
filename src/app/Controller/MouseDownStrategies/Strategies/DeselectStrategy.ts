@@ -9,6 +9,7 @@ class DeselectStrategy implements IMouseDownStrategy {
         if(controller.selectedElement) controller.selectedElement.deselect()
         controller.selectedElement = null
         controller.mode = ControllerModeType.UNSELECTED
+        controller.selectionIndicator = null
     }
 }
 

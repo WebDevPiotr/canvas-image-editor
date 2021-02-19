@@ -1,4 +1,4 @@
-import ImageSprite from "App/CanvasElements/ImageSprite";
+import ImageSprite from "App/CanvasElements/Elements/ImageSprite";
 import AbstractRenderStrategy from "../AbstractRenderStrategy";
 class ImageRenderStrategy extends AbstractRenderStrategy {
 

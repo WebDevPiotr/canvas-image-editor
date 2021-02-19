@@ -1,5 +1,5 @@
 import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
-import CanvasElementTypes from './CanvasElementsTypes'
+import CanvasElementTypes from '../CanvasElementsTypes'
 
 class SceneBackground extends RenderableElement {
 

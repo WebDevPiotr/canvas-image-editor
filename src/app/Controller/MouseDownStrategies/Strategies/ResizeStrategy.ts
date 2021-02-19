@@ -1,35 +1,37 @@
 import SceneController from 'App/Controller/SceneController';
 import IMouseDownStrategy from '../IMouseDownStrategy'
 import ControllerModeType from 'App/Controller/ControllerModeType';
+import ResizeIndicator from 'App/CanvasElements/SelectionIndicator/ResizeIndicator'
 import { Intersection } from 'App/Types';
-import IndicatorTypes from 'App/CanvasElements/SelectionIndicator/IndicatorTypes';
+import Placement from 'App/CanvasElements/SelectionIndicator/Placement';
 
 class ResizeStrategy implements IMouseDownStrategy {
 
     public execute(intersection: Intersection, controller: SceneController) {
-        switch (intersection.element.type) {
-            case IndicatorTypes.ResizeIndicator_T:
+        const element = intersection.element as ResizeIndicator
+        switch (element.placement) {
+            case Placement.TOP:
                 controller.mode = ControllerModeType.RESIZING_T
                 break;
-            case IndicatorTypes.ResizeIndicator_TL:
+            case Placement.TOP_LEFT:
                 controller.mode = ControllerModeType.RESIZING_TL
                 break;
-            case IndicatorTypes.ResizeIndicator_TR:
+            case Placement.TOP_RIGHT:
                 controller.mode = ControllerModeType.RESIZING_TR
                 break;
-            case IndicatorTypes.ResizeIndicator_L:
+            case Placement.LEFT:
                 controller.mode = ControllerModeType.RESIZING_L
                 break;
-            case IndicatorTypes.ResizeIndicator_R:
+            case Placement.RIGHT:
                 controller.mode = ControllerModeType.RESIZING_R
                 break;
-            case IndicatorTypes.ResizeIndicator_B:
+            case Placement.BOTTOM:
                 controller.mode = ControllerModeType.RESIZING_B
                 break;
-            case IndicatorTypes.ResizeIndicator_BL:
+            case Placement.BOTTOM_LEFT:
                 controller.mode = ControllerModeType.RESIZING_BL
                 break;
-            case IndicatorTypes.ResizeIndicator_BR:
+            case Placement.BOTTOM_RIGHT:
                 controller.mode = ControllerModeType.RESIZING_BR
                 break;
         }

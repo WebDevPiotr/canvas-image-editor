@@ -1,8 +1,11 @@
 enum ControllerModeType {
     UNSELECTED = 'UNSELECTED',
     SELECTED = 'SELECTED',
+    MARKING = 'MARKING',
+    
     MOVING = 'MOVING',
     ROTATING = 'ROTATING',
+
     RESIZING_T = 'RESIZING_T',
     RESIZING_TL = 'RESIZING_TL',
     RESIZING_TR = 'RESIZING_TR',
