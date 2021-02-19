@@ -16,8 +16,8 @@ sceneController.init()
 
 canvas.addEventListener('drop', async e => {
     e.preventDefault();
-    if(!scene.background) await scene.setBackground(e.dataTransfer.files[0])
-    else await scene.addToScene(e.dataTransfer.files[0])
+    //if(!scene.background) await scene.setBackground(e.dataTransfer.files[0])
+    await scene.addToScene(e.dataTransfer.files[0])
     renderer.render(scene)
 })
 

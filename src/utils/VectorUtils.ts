@@ -12,9 +12,19 @@ class Vector implements IVector {
     public x: number
     public y: number
 
-    constructor(x: number, y: number) {
-        this.x = Number(x.toFixed(2))
-        this.y = Number(y.toFixed(2))
+    constructor(x?: number, y?: number) {
+        this.x = x ? Number(x.toFixed(2)) : 0
+        this.y = y ? Number(y.toFixed(2)) : 0
+    }
+
+    public setX(x: number) {
+        this.x = x
+        return this
+    }
+
+    public setY(y: number) {
+        this.y = y
+        return
     }
 
     public add(vector: Vector) {
@@ -29,6 +39,12 @@ class Vector implements IVector {
         return this
     }
 
+    public div(factor: number) {
+        this.x = this.x / factor
+        this.y = this.y / factor
+        return this
+    }
+
     public clone(): Vector {
         return new Vector(this.x, this.y)
     }
@@ -40,7 +56,7 @@ class Vector implements IVector {
         return this
     }
 
-    public angleBetween(vector: Vector){
+    public angleBetween(vector: Vector) {
         return Math.atan2(this.y, this.x) - Math.atan2(vector.y, vector.x)
     }
 

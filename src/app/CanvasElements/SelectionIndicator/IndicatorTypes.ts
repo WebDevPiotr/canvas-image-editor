@@ -12,14 +12,12 @@ enum IndicatorTypes {
 }
 
 export function checkifIsResizeIndicator(type: IndicatorTypes) {
-    return type === IndicatorTypes.ResizeIndicator_T ||
-        type === IndicatorTypes.ResizeIndicator_TL ||
-        type === IndicatorTypes.ResizeIndicator_TR ||
-        type === IndicatorTypes.ResizeIndicator_L ||
-        type === IndicatorTypes.ResizeIndicator_R ||
-        type === IndicatorTypes.ResizeIndicator_B ||
-        type === IndicatorTypes.ResizeIndicator_BL ||
-        type === IndicatorTypes.ResizeIndicator_BR
+    return [
+        IndicatorTypes.ResizeIndicator_T, IndicatorTypes.ResizeIndicator_TL,
+        IndicatorTypes.ResizeIndicator_TR, IndicatorTypes.ResizeIndicator_L,
+        IndicatorTypes.ResizeIndicator_R, IndicatorTypes.ResizeIndicator_B,
+        IndicatorTypes.ResizeIndicator_BL, IndicatorTypes.ResizeIndicator_BR
+    ].includes(type)
 }
 
 export default IndicatorTypes

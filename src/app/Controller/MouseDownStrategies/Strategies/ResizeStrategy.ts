@@ -7,7 +7,6 @@ import IndicatorTypes from 'App/CanvasElements/SelectionIndicator/IndicatorTypes
 class ResizeStrategy implements IMouseDownStrategy {
 
     public execute(intersection: Intersection, controller: SceneController) {
-        console.log(intersection.element.type)
         switch (intersection.element.type) {
             case IndicatorTypes.ResizeIndicator_T:
                 controller.mode = ControllerModeType.RESIZING_T
