@@ -6,6 +6,9 @@ class ResizeIndicatorRenderStrategy {
         const { position: ePos, rotation: eRot } = element
         const { position: iPos, size: iSize } = indicator
         context.save()
+        context.lineWidth = 1;
+        context.strokeStyle = "blue"
+        context.fillStyle = "blue"
         context.translate(ePos.x, ePos.y);
         context.rotate(eRot);
         context.beginPath();

@@ -6,6 +6,8 @@ class SelectionBorderRenderStrategy implements IRenderStrategy {
     execute(context: CanvasRenderingContext2D, element: RenderableElement) {
         const { position, size, rotation } = element
         context.save()
+        context.lineWidth = 3;
+        context.strokeStyle = "#90EE90";
         context.translate(position.x, position.y);
         context.rotate(rotation);
         context.beginPath();

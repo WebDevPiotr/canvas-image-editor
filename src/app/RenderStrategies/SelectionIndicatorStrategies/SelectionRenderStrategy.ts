@@ -1,4 +1,3 @@
-import IRenderStrategy from "../IRenderStartegy";
 import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 import SelectionBorderRenderStrategy from "./SelectionBorderRenderStrategy";
@@ -7,17 +6,12 @@ import ResizeIndicatorRenderStrategy from './ResizeIndicatorRenderStrategy'
 import RotationIndicatorRenderStrategy from './RotationIndicatorRenderStrategy'
 import SceneController from "App/Controller/SceneController";
 
-class SelectionDecorator {
+class SelectionRenderStartegy {
 
     public execute(context: CanvasRenderingContext2D, controller: SceneController) {
         const { selectedElement, selectionIndicator } = controller
         context.save()
-        context.lineWidth = 3;
-        context.strokeStyle = "#90EE90";
         this.drawBorder(context, selectedElement)
-        context.lineWidth = 1;
-        context.strokeStyle = "blue"
-        context.fillStyle = "blue"
         selectionIndicator.elements.forEach(indicator => this.drawIndicator(context, indicator, selectedElement))
         context.restore()
     }
@@ -34,4 +28,4 @@ class SelectionDecorator {
     }
 }
 
-export default SelectionDecorator
+export default SelectionRenderStartegy

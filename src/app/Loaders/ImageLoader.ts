@@ -15,6 +15,7 @@ class ImageLoader {
         return new Promise(resolve => {
             const image = new Image()
             image.src = url
+            image.crossOrigin = ''
             image.addEventListener('load', () => resolve(image))
         })
     }

@@ -2,6 +2,7 @@ import './index.scss'
 import { Scene, CanvasRenderer, SceneController } from 'App/Core'
 import ExportStrategyProvider from 'App/ExportStrategies/ExportStrategyProvider'
 import ExportTypes from 'App/ExportStrategies/ExportTypes'
+import ControllerModeType from 'App/Controller/ControllerModeType'
 
 const container: HTMLDivElement = document.querySelector('.app')
 const canvas: HTMLCanvasElement = document.querySelector('#canvas')
@@ -16,7 +17,6 @@ sceneController.init()
 
 canvas.addEventListener('drop', async e => {
     e.preventDefault();
-    //if(!scene.background) await scene.setBackground(e.dataTransfer.files[0])
     await scene.addToScene(e.dataTransfer.files[0])
     renderer.render(scene, sceneController)
 })
@@ -25,8 +25,28 @@ canvas.addEventListener("dragover", e => {
     e.preventDefault();
 });
 
-const button = document.querySelector('#export')
+document.querySelector('#export')
+    .addEventListener('click', () => {
+        ExportStrategyProvider.get(ExportTypes.PNG).execute(canvas)
+    })
 
-button.addEventListener('click', () => {
-    ExportStrategyProvider.get(ExportTypes.PNG).execute(canvas)
-})
+document.querySelector('#marking')
+    .addEventListener('click', () => {
+        sceneController.mode = ControllerModeType.MARKING
+        sceneController.selectionIndicator = null
+        renderer.render(scene, sceneController)
+    })
+
+document.querySelector('#select')
+    .addEventListener('click', () => {
+        sceneController.mode = ControllerModeType.UNSELECTED
+        sceneController.markingBox = null
+        renderer.render(scene, sceneController)
+    })
+document.querySelector('#load')
+    .addEventListener('click', async () => {
+        let input = document.querySelector('#url') as HTMLInputElement
+        let url = input.value
+        await scene.addToScene(url)
+        renderer.render(scene, sceneController)
+    })

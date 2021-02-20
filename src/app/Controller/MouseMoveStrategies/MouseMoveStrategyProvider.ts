@@ -4,11 +4,14 @@ import IMouseMoveStrategy from './IMouseMoveStrategy'
 import MoveStartegy from './Strategies/MoveStrategy'
 import RotationStrategy from './Strategies/RotationStrategy'
 import ResizeStrategy from './Strategies/ResizeStrategy'
+import MarkingStrategy from './Strategies/MarkingStartegy'
 
 class MouseMoveStrategyProvider {
 
     static get(mode: ControllerModeType): IMouseMoveStrategy {
         switch (mode) {
+            case ControllerModeType.MARKING:
+                return new MarkingStrategy()
             case ControllerModeType.MOVING:
             case ControllerModeType.SELECTED:
                 return new MoveStartegy()

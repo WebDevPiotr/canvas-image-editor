@@ -1,3 +1,4 @@
+import Vector from 'Utils/VectorUtils'
 import RenderableElement from '../CanvasElements/Abstract/RenderableElement'
 import IRenderStrategy from './IRenderStartegy'
 
@@ -16,6 +17,7 @@ abstract class AbstractRenderStrategy implements IRenderStrategy {
                 width: Math.floor(element.originalSize.width / scale),
                 height: Math.floor(element.originalSize.height / scale)
             }
+            element.position = new Vector(element.size.width/2, element.size.height/2)
         }
     }
 

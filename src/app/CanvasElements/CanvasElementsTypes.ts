@@ -9,7 +9,7 @@ enum CanvasElementTypes {
     RotationIndicator = 'RotationIndicator',
     ResizeIndicator = 'ResizeIndicator',
 
-    MatchingBox = 'MatchingBox',
+    MarkingBox = 'MarkingBox',
 
 }
 
