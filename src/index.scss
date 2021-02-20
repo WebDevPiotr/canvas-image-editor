@@ -13,11 +13,21 @@ body{
     justify-content: center;
 }
 
-.app{
-    width: 800px;
-    height: 800px;
-    border: 1px solid black;
+.canvasWindow{
+    width: 80%;
+    height: 100%;
+    background-color: #252525;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.buttonsPanel{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

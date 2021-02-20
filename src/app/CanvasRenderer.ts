@@ -3,6 +3,9 @@ import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
 import SelectionRenderStrategy from './RenderStrategies/SelectionIndicatorStrategies/SelectionRenderStrategy'
 import SceneController from './Controller/SceneController';
 import MarkingBoxRenderStrategy from './RenderStrategies/MarkingBoxStrategies/MarkingBoxRenderStartegy';
+import SceneBackground from './CanvasElements/Elements/SceneBackground';
+import SceneLayer from './Scene/SceneLayer';
+import MoveableElement from './CanvasElements/Abstract/MoveableElement';
 interface ICanvasRenderer {
     render(scene: Scene, controller: SceneController): void
     clear(): void
@@ -12,6 +15,7 @@ class CanvasRenderer implements ICanvasRenderer {
     private _context: CanvasRenderingContext2D
     private _width: number
     private _height: number
+    private _scale: number
 
     constructor(private canvas: HTMLCanvasElement) {
         this._context = canvas.getContext('2d')
@@ -21,16 +25,21 @@ class CanvasRenderer implements ICanvasRenderer {
 
     public render(scene: Scene, controller: SceneController) {
         this.clear()
-        if (scene.background)
-            RenderStrategyProvider.get(scene.background.type).execute(this.context, scene.background)
-        if (scene.layers.length)
-            scene.layers.forEach(({ element }) => {
-                RenderStrategyProvider.get(element.type).execute(this.context, element)
-            })
-        if (controller.selectionIndicator)
-            new SelectionRenderStrategy().execute(this.context, controller)
-        if (controller.markingBox)
-            new MarkingBoxRenderStrategy().execute(this.context, controller)
+        if (scene.background) this.renderBackground(scene.background)
+        if (scene.layers.length) this.renderContentLayers(scene.layers)
+        if (controller.selectionIndicator) new SelectionRenderStrategy().execute(this.context, controller)
+        if (controller.markingBox) new MarkingBoxRenderStrategy().execute(this.context, controller)
+    }
+
+    private renderBackground(background: SceneBackground) {
+        RenderStrategyProvider.get(background.type).execute(this.context, background)
+        this._scale = background.originalSize.width / this.context.canvas.clientWidth 
+    }
+
+    private renderContentLayers(layers: SceneLayer<MoveableElement>[]){
+        layers.forEach(({ element }) => {
+            RenderStrategyProvider.get(element.type).execute(this.context, element)
+        })
     }
 
     public clear() {
@@ -44,6 +53,7 @@ class CanvasRenderer implements ICanvasRenderer {
     get context() { return this._context }
     get width() { return this._width }
     get height() { return this._height }
+    get scale() { return this._scale }
 
     static renderSceneToContext(scene: Scene, context: CanvasRenderingContext2D) {
         if (scene.background)

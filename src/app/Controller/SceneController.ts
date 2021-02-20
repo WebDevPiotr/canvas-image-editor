@@ -3,11 +3,13 @@ import { Scene, CanvasInspector, CanvasRenderer } from 'App/Core'
 import Vector from 'Utils/VectorUtils'
 import MoveableElement from 'App/CanvasElements/Abstract/MoveableElement'
 import ControllerModeType from './ControllerModeType'
-import MouseMovingStrategyProvider from './MouseMoveStrategies/MouseMoveStrategyProvider'
-import MouseDownStrategyProvider from './MouseDownStrategies/MouseDownStrategyProvider'
+
 import SelectionIndicator from 'App/CanvasElements/SelectionIndicator/SelectionIndicator'
 import MarkingBox from 'App/CanvasElements/MarkingBox/MarkingBox'
 import ClipBoard from './ClipBoard/ClipBoard'
+
+import MouseMovingStrategyProvider from './MouseMoveStrategies/MouseMoveStrategyProvider'
+import MouseDownStrategyProvider from './MouseDownStrategies/MouseDownStrategyProvider'
 import MouseUpStrategyProvider from './MouseUpStrategies/MouseUpStrategyProvider'
 import KeyDownStrategyProvider from './KeyDownStrategies/KeyDownStrategyProvider'
 
@@ -69,7 +71,9 @@ class SceneController {
 
     private getMousePosition(e: MouseEvent): Vector {
         let bbox = this.canvas.getBoundingClientRect();
-        return new Vector(e.clientX - bbox.left, e.clientY - bbox.top)
+        let x = (e.clientX - bbox.left) * this._renderer.scale
+        let y = (e.clientY - bbox.top) * this._renderer.scale
+        return new Vector(x, y)
     }
 
     private intersectScene(mousePos: Vector): Intersection {
@@ -92,7 +96,9 @@ class SceneController {
 
     get scene() { return this._scene }
 
-    get renderer() { return this._renderer}
+    get renderer() { return this._renderer }
+
+    //TODO setMode method
 
 }
 

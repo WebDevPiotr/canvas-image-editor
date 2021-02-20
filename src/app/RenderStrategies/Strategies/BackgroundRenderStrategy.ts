@@ -3,13 +3,21 @@ import AbstractRenderStrategy from "../AbstractRenderStrategy";
 class BackgroundRenderStrategy extends AbstractRenderStrategy {
 
     public execute(context: CanvasRenderingContext2D, background: SceneBackground) {
-        super.execute(context, background)
-        let canvas = context.canvas
-        if (canvas.width > background.size.width) canvas.width = background.size.width
-        if (canvas.height > background.size.height) canvas.height = background.size.height
+        const canvas = context.canvas
+        const { originalSize, image } = background
+        canvas.width = originalSize.width
+        canvas.height = originalSize.height
+        if(originalSize.width > originalSize.height){
+            canvas.style.width = '100%'
+            canvas.style.height = ''
+        }
+        else{
+            canvas.style.height = '100%'
+            canvas.style.width = ''
+        }
         context.save()
         context.translate(canvas.width / 2, canvas.height / 2)
-        context.drawImage(background.image, -background.size.width / 2, -background.size.height / 2, background.size.width, background.size.height)
+        context.drawImage(image, -originalSize.width / 2, -originalSize.height / 2, originalSize.width, originalSize.height)
         context.restore()
     }
 

@@ -4,7 +4,7 @@ import ExportStrategyProvider from 'App/ExportStrategies/ExportStrategyProvider'
 import ExportTypes from 'App/ExportStrategies/ExportTypes'
 import ControllerModeType from 'App/Controller/ControllerModeType'
 
-const container: HTMLDivElement = document.querySelector('.app')
+const container: HTMLDivElement = document.querySelector('.canvasWindow')
 const canvas: HTMLCanvasElement = document.querySelector('#canvas')
 canvas.width = container.clientWidth
 canvas.height = container.clientHeight
@@ -48,5 +48,11 @@ document.querySelector('#load')
         let input = document.querySelector('#url') as HTMLInputElement
         let url = input.value
         await scene.addToScene(url)
+        renderer.render(scene, sceneController)
+    })
+
+document.querySelector('#file')
+    .addEventListener('change', async (e) => {
+        await scene.setBackground((e.target as HTMLInputElement).files[0])
         renderer.render(scene, sceneController)
     })
