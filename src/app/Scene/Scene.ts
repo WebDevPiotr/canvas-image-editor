@@ -34,7 +34,7 @@ class Scene implements IScene {
     }
 
     public removeLayer(element: MoveableElement) {
-
+        this._layers = this._layers.filter(layer => layer.element.id !== element.id )
     }
 
 }

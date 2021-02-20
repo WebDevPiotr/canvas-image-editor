@@ -66,7 +66,7 @@ class SceneController {
     }
 
     private onKeyDown(e: KeyboardEvent) {
-        KeyDownStrategyProvider.get(e)?.execute(this)
+        KeyDownStrategyProvider.get(e, this.mode)?.execute(this)
     }
 
     private getMousePosition(e: MouseEvent): Vector {
