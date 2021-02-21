@@ -22,6 +22,8 @@ class SceneController {
     private _mode: ControllerModeType = ControllerModeType.UNSELECTED
     private _clipBoard: ClipBoard = new ClipBoard()
 
+    //TODO history implementation
+
     constructor(private canvas: HTMLCanvasElement, private _scene: Scene, private _renderer: CanvasRenderer) {
         this.onMouseDown = this.onMouseDown.bind(this)
         this.onMouseMove = this.onMouseMove.bind(this)

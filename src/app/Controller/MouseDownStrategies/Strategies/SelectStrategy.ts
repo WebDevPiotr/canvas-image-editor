@@ -10,6 +10,7 @@ class SelectStrategy implements IMouseDownStrategy {
     public execute(intersection: Intersection, controller: SceneController) {
         let element = intersection.element as MoveableElement
         if (controller.selectedElement && controller.selectedElement.id === element.id) {
+            element.select(intersection.position)
             controller.mode = ControllerModeType.MOVING
         }
         else {

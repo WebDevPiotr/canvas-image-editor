@@ -5,29 +5,26 @@ import ExportTypes from 'App/ExportStrategies/ExportTypes'
 import ControllerModeType from 'App/Controller/ControllerModeType'
 
 const container: HTMLDivElement = document.querySelector('.canvasWindow')
-const canvas: HTMLCanvasElement = document.querySelector('#canvas')
-canvas.width = container.clientWidth
-canvas.height = container.clientHeight
 
 const scene = new Scene()
-const renderer = new CanvasRenderer(canvas)
-const sceneController = new SceneController(canvas, scene, renderer)
+const renderer = new CanvasRenderer(container)
+const sceneController = new SceneController(renderer.canvas, scene, renderer)
 
 sceneController.init()
 
-canvas.addEventListener('drop', async e => {
+renderer.canvas.addEventListener('drop', async e => {
     e.preventDefault();
     await scene.addToScene(e.dataTransfer.files[0])
     renderer.render(scene, sceneController)
 })
 
-canvas.addEventListener("dragover", e => {
+renderer.canvas.addEventListener("dragover", e => {
     e.preventDefault();
 });
 
 document.querySelector('#export')
     .addEventListener('click', () => {
-        ExportStrategyProvider.get(ExportTypes.PNG).execute(canvas)
+        ExportStrategyProvider.get(ExportTypes.PNG).execute(renderer.canvas)
     })
 
 document.querySelector('#marking')
@@ -54,5 +51,8 @@ document.querySelector('#load')
 document.querySelector('#file')
     .addEventListener('change', async (e) => {
         await scene.setBackground((e.target as HTMLInputElement).files[0])
+        renderer.setSize(scene.background)
         renderer.render(scene, sceneController)
     })
+
+window.addEventListener('resize', () => renderer.resize())

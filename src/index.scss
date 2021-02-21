@@ -21,6 +21,11 @@ body{
     justify-content: center;
     align-items: center;
     padding: 20px;
+
+    canvas{
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .buttonsPanel{

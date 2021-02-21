@@ -8,11 +8,11 @@ import SceneController from "App/Controller/SceneController";
 
 class SelectionRenderStartegy {
 
-    public execute(context: CanvasRenderingContext2D, controller: SceneController) {
+    public execute(context: CanvasRenderingContext2D, controller: SceneController, scale: number) {
         const { selectedElement, selectionIndicator } = controller
         context.save()
         this.drawBorder(context, selectedElement)
-        selectionIndicator.elements.forEach(indicator => this.drawIndicator(context, indicator, selectedElement))
+        selectionIndicator.elements.forEach(indicator => this.drawIndicator(context, indicator, selectedElement, scale))
         context.restore()
     }
 
@@ -20,11 +20,11 @@ class SelectionRenderStartegy {
         new SelectionBorderRenderStrategy().execute(context, element)
     }
 
-    private drawIndicator(context: CanvasRenderingContext2D, indicator: RenderableElement, element: RenderableElement) {
+    private drawIndicator(context: CanvasRenderingContext2D, indicator: RenderableElement, element: RenderableElement, scale: number) {
         if (indicator.type === CanvasElementsTypes.RotationIndicator)
-            new RotationIndicatorRenderStrategy().execute(context, indicator, element)
+            new RotationIndicatorRenderStrategy().execute(context, indicator, element, scale)
         else
-            new ResizeIndicatorRenderStrategy().execute(context, indicator, element)
+            new ResizeIndicatorRenderStrategy().execute(context, indicator, element, scale)
     }
 }
 
