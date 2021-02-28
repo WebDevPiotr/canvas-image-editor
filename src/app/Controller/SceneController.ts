@@ -68,6 +68,7 @@ class SceneController {
     }
 
     private onKeyDown(e: KeyboardEvent) {
+        console.log(e)
         KeyDownStrategyProvider.get(e, this.mode)?.execute(this)
     }
 

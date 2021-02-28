@@ -1,8 +1,5 @@
 import Scene from 'App/Scene/Scene'
-import RenderStrategyProvider from './RenderStrategies/RenderStrategyProvider';
-import SelectionRenderStrategy from './RenderStrategies/SelectionIndicatorStrategies/SelectionRenderStrategy'
 import SceneController from './Controller/SceneController';
-import MarkingBoxRenderStrategy from './RenderStrategies/MarkingBoxStrategies/MarkingBoxRenderStartegy';
 import SceneBackground from './CanvasElements/Elements/SceneBackground';
 import SceneLayer from './Scene/SceneLayer';
 import MoveableElement from './CanvasElements/Abstract/MoveableElement';
@@ -27,6 +24,7 @@ class CanvasRenderer implements ICanvasRenderer {
         this._maxHeight = clientHeight
         this._maxWidth = clientWidth
         this._canvas = document.createElement('canvas')
+        this.canvas.tabIndex = 1
         this._context = this._canvas.getContext('2d')
         this._container.appendChild(this._canvas)
     }
@@ -35,6 +33,8 @@ class CanvasRenderer implements ICanvasRenderer {
         const { originalSize } = background
         this._canvas.width = originalSize.width
         this._canvas.height = originalSize.height
+        this._width = originalSize.width
+        this._height = originalSize.height
         this.setCanvasStyle()
         this._scale = this._canvas.width / this._canvas.clientWidth
     }
@@ -49,10 +49,10 @@ class CanvasRenderer implements ICanvasRenderer {
 
     public render(scene: Scene, controller: SceneController) {
         this.clear()
-        if (scene.background) this.renderBackground(scene.background)
-        if (scene.layers.length) this.renderContentLayers(scene.layers)
-        if (controller.selectionIndicator) new SelectionRenderStrategy().execute(this.context, controller, this._scale)
-        if (controller.markingBox) new MarkingBoxRenderStrategy().execute(this.context, controller)
+        if (scene.background) scene.background.draw(this.context)
+        if (scene.layers.length) scene.layers.forEach(({ element }: SceneLayer<MoveableElement>) => element.draw(this.context))
+        if (controller.selectionIndicator) controller.selectionIndicator.draw(this.context, this._scale)
+        if (controller.markingBox) controller.markingBox.draw(this.context)
     }
 
     public clear() {
@@ -63,23 +63,14 @@ class CanvasRenderer implements ICanvasRenderer {
         this.context.restore()
     }
 
-    private renderBackground(background: SceneBackground) {
-        RenderStrategyProvider.get(background.type).execute(this.context, background)
-    }
-
-    private renderContentLayers(layers: SceneLayer<MoveableElement>[]) {
-        layers.forEach(({ element }) => {
-            RenderStrategyProvider.get(element.type).execute(this.context, element)
-        })
-    }
-
+    //TODO
     private setCanvasStyle() {
         if (this._canvas.width > this._canvas.height) {
-            this._canvas.style.width = this._canvas.width > this._maxWidth ? '100%' : `${this._canvas.width}px`
+            this._canvas.style.width = this._canvas.width > this._maxWidth ? `${this._maxWidth}px` : `${this._canvas.width}px`
             this._canvas.style.height = 'auto'
         }
         else {
-            this._canvas.style.height = this._canvas.height > this._maxHeight ? '100%' : `${this._canvas.height}px`
+            this._canvas.style.height = this._canvas.height > this._maxHeight ? `${this._maxHeight}px` : `${this._canvas.height}px`
             this._canvas.style.width = 'auto'
         }
     }
@@ -91,11 +82,10 @@ class CanvasRenderer implements ICanvasRenderer {
     get scale() { return this._scale }
 
     static renderSceneToContext(scene: Scene, context: CanvasRenderingContext2D) {
-        if (scene.background)
-            RenderStrategyProvider.get(scene.background.type).execute(context, scene.background)
+        if (scene.background) scene.background.draw(context)
         if (scene.layers.length)
             scene.layers.forEach(({ element }) => {
-                RenderStrategyProvider.get(element.type).execute(context, element)
+                element.draw(context)
             })
     }
 

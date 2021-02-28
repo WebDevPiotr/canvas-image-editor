@@ -1,8 +1,11 @@
 import Element from './Element'
 import RenderableElement from './RenderableElement'
 
-
-abstract class CompoundElement extends Element {
+interface ICompound {
+    add(...elements: RenderableElement[]): void
+    remove(element: RenderableElement): void
+}
+abstract class CompoundElement extends Element implements ICompound {
 
     private _elements: RenderableElement[] = []
 

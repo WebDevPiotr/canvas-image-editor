@@ -16,6 +16,22 @@ class ResizeIndicator extends RenderableElement {
         this._placement = placement
     }
 
+    public draw(context: CanvasRenderingContext2D, element: RenderableElement, scale: number) {
+        const { position: ePos, rotation: eRot } = element
+        const { position: iPos, size: iSize } = this
+        context.save()
+        context.lineWidth = 1;
+        context.strokeStyle = "blue"
+        context.fillStyle = "blue"
+        context.translate(ePos.x, ePos.y);
+        context.rotate(eRot);
+        context.beginPath();
+        context.arc(iPos.x, iPos.y, iSize.width * scale / 2, 0, 2 * Math.PI)
+        context.fill();
+        context.stroke();
+        context.restore()
+    }
+
 }
 
 export default ResizeIndicator

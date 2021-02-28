@@ -1,5 +1,5 @@
 import SceneBackground from 'App/CanvasElements/Elements/SceneBackground'
-import SceneBorder from 'App/CanvasElements/Elements/SceneBorder'
+// import SceneBorder from 'App/CanvasElements/Elements/SceneBorder'
 import ImageSprite from 'App/CanvasElements/Elements/ImageSprite';
 import ImageLoader from 'App/Loaders/ImageLoader'
 import MoveableElement from '../CanvasElements/Abstract/MoveableElement';
@@ -15,11 +15,11 @@ interface IScene {
 class Scene implements IScene {
 
     private _background: SceneBackground
-    private _border: SceneBorder
+    // private _border: SceneBorder
     private _layers: SceneLayer<MoveableElement>[] = []
 
     get background() { return this._background }
-    get border() { return this._border }
+    // get border() { return this._border }
     get layers() { return this._layers }
 
 

@@ -10,6 +10,7 @@ class CopyStrategy implements IKeyDownStrategy {
         const { clipBoard, markingBox, renderer, scene } = controller
         const imageData = this.getImageData(renderer, scene, markingBox)
         clipBoard.write(this.imageDataToDataUrl(imageData))
+        console.log('copy')
     }
 
     private imageDataToDataUrl(imageData: ImageData): string {
@@ -25,6 +26,7 @@ class CopyStrategy implements IKeyDownStrategy {
         const tempCanvas = document.createElement('canvas')
         tempCanvas.width = renderer.width
         tempCanvas.height = renderer.height
+        console.log(renderer)
         const tempContext = tempCanvas.getContext('2d')
         tempContext.fillStyle = "white";
         tempContext.fillRect(0, 0, tempCanvas.width, tempCanvas.height);

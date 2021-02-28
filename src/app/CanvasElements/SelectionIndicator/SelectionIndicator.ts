@@ -5,15 +5,16 @@ import CanvasElementsTypes from '../CanvasElementsTypes'
 import ResizeIndicator from './ResizeIndicator'
 import RotationIndicator from './RotationIndicator'
 import Placement from './Placement'
+import RenderableElement from 'App/CanvasElements/Abstract/RenderableElement'
 
 class SelectionIndicator extends CompundElement {
 
-    constructor(private _element: MoveableElement) {
+    constructor(private _element: RenderableElement) {
         super(CanvasElementsTypes.SelectionIndicator)
     }
 
     get element() { return this._element }
-    set element(element: MoveableElement) { this._element = element }
+    set element(element: RenderableElement) { this._element = element }
 
     static fromElement(element: MoveableElement) {
         const { size } = element
@@ -43,6 +44,26 @@ class SelectionIndicator extends CompundElement {
         this.elements[6].position = new Vector(0, size.height / 2)
         this.elements[7].position = new Vector(0, -size.height / 2)
         this.elements[8].position = new Vector(0, -size.height / 2 - 40)
+    }
+
+    public draw(context: CanvasRenderingContext2D, scale: number) {
+        context.save()
+        this.drawBorder(context)
+        this.elements.forEach(indicator => indicator.draw(context, this.element, scale))
+        context.restore()
+    }
+
+    private drawBorder(context: CanvasRenderingContext2D) {
+        const { position, size, rotation } = this.element
+        context.save()
+        context.lineWidth = 3;
+        context.strokeStyle = "#90EE90";
+        context.translate(position.x, position.y);
+        context.rotate(rotation);
+        context.beginPath();
+        context.rect(-size.width / 2, -size.height / 2, size.width, size.height);
+        context.stroke();
+        context.restore()
     }
 
 }

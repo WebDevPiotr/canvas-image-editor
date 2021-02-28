@@ -3,7 +3,10 @@ import Element from './Element'
 import Vector from 'Utils/VectorUtils'
 
 
-abstract class RenderableElement extends Element {
+interface IRenderable {
+    draw(context: CanvasRenderingContext2D, ...params: any[]): void
+}
+abstract class RenderableElement extends Element implements IRenderable {
 
     private _size: Size
     private _originalSize: Size
@@ -32,6 +35,21 @@ abstract class RenderableElement extends Element {
 
     get originalSize() { return this._originalSize }
     set originalSize(originalSize: Size) { this._originalSize = originalSize }
+
+    abstract draw(context: CanvasRenderingContext2D, ...params: any[]): void
+
+    protected resizeToFitCanvas(context: CanvasRenderingContext2D) {
+        let widthRatio = this.size.width / context.canvas.width
+        let heightRatio = this.size.height / context.canvas.height
+        if (widthRatio > 1 || heightRatio > 1) {
+            let scale = Math.max(widthRatio, heightRatio)
+            this.size = {
+                width: Math.floor(this.originalSize.width / scale),
+                height: Math.floor(this.originalSize.height / scale)
+            }
+            this.position = new Vector(this.size.width / 2, this.size.height / 2)
+        }
+    }
 
 }
 

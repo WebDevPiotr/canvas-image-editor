@@ -9,6 +9,7 @@ class PasteStrategy implements IKeyDownStrategy {
         await scene.addToScene(clipBoard.read())
         controller.mode = ControllerModeType.UNSELECTED
         renderer.render(controller.scene, controller)
+        console.log('paset')
     }
 }
 
