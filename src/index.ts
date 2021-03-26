@@ -3,7 +3,6 @@ import { Scene, CanvasRenderer, SceneController } from 'App/Core'
 import ExportStrategyProvider from 'App/ExportStrategies/ExportStrategyProvider'
 import ExportTypes from 'App/ExportStrategies/ExportTypes'
 import ControllerModeType from 'App/Controller/ControllerModeType'
-import { Component } from 'Utils/Injectable'
 
 const container: HTMLDivElement = document.querySelector('.canvasContainer')
 
