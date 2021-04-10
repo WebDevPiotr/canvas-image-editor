@@ -63,15 +63,40 @@ class CanvasRenderer implements ICanvasRenderer {
         this.context.restore()
     }
 
-    //TODO
     private setCanvasStyle() {
-        if (this._canvas.width > this._canvas.height) {
-            this._canvas.style.width = this._canvas.width > this._maxWidth ? `${this._maxWidth}px` : `${this._canvas.width}px`
-            this._canvas.style.height = 'auto'
+        const ratio = this._width / this._height
+
+        if (this._maxWidth > this._maxHeight) {
+            if (this._width > this._height) {
+                if (this._maxWidth / ratio >= this._maxHeight) {
+                    this._canvas.style.width = `${this._maxHeight * ratio}px`
+                    this._canvas.style.height = `${this._maxHeight}px`
+                }
+                else {
+                    this._canvas.style.width = `${this._maxWidth}px`
+                    this._canvas.style.height = `${this._maxWidth / ratio}px`
+                }
+            }
+            else {
+                this._canvas.style.width = `${this._maxHeight * ratio}px`
+                this._canvas.style.height = `${this._maxHeight}px`
+            }
         }
         else {
-            this._canvas.style.height = this._canvas.height > this._maxHeight ? `${this._maxHeight}px` : `${this._canvas.height}px`
-            this._canvas.style.width = 'auto'
+            if (this._width > this._height) {
+                this._canvas.style.width = `${this._maxWidth}px`
+                this._canvas.style.height = `${this._maxWidth / ratio}px`
+            }
+            else {
+                if (this._maxHeight * ratio >= this._maxWidth) {
+                    this._canvas.style.width = `${this._maxWidth}px`
+                    this._canvas.style.height = `${this._maxWidth / ratio}px`
+                }
+                else {
+                    this._canvas.style.width = `${this._maxHeight * ratio}px`
+                    this._canvas.style.height = `${this._maxHeight}px`
+                }
+            }
         }
     }
 

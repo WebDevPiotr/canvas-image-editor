@@ -44,3 +44,14 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.loadButton{
+    border: 1px solid gray;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 14px;
+}
